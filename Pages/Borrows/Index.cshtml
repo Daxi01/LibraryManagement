@@ -1,0 +1,44 @@
+﻿@page
+@model LibraryManagement.Pages.Borrows.IndexModel
+
+
+
+
+<h1>Borrowed books</h1>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Book</th>
+            <th>User</th>
+            <th>Borrow Date</th>
+            <th>Return Date</th>
+            <th></th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var borrow in Model.Borrows)
+        {
+             <tr class="@(borrow.ReturnDate == null && borrow.BorrowDate.AddDays(14) < DateTime.Now ? "table-danger" : "")">
+                 <td>@borrow.Book.Title</td>
+                 <td>@borrow.User.Name</td>
+                 <td>@borrow.BorrowDate.ToShortDateString()</td>
+                 <td>@(borrow.ReturnDate.HasValue ? borrow.ReturnDate.Value.ToShortDateString() : "Not Returned")</td>
+                 <td>
+                    @if (!borrow.ReturnDate.HasValue)
+                    {
+                        <a asp-page="./Return" asp-route-id="@borrow.Id">Return</a>
+                    }
+                </td>
+
+             </tr>
+        }
+
+    </tbody>
+
+
+</table>
+
+<a asp-page="./Create" class="btn btn-primary">Borrow Book</a>         

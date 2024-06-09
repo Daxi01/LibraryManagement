@@ -1,0 +1,28 @@
+﻿@page
+@model LibraryManagement.Pages.Borrows.CreateModel
+
+<h1>Borrow Book</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Borrow.BookId" class="control-label">Book</label>
+        <select asp-for="Borrow.BookId" class="form-control" asp-items="Model.BookList"></select>
+        <span asp-validation-for="Borrow.BookId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Borrow.UserId" class="control-label">User</label>
+        <select asp-for="Borrow.UserId" class="form-control" asp-items="Model.UserList"></select>
+        <span asp-validation-for="Borrow.UserId" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="Borrow.BorrowDate" />
+
+    <button type="submit" class="btn btn-primary">Borrow</button>
+    <a asp-page="./Index" class="btn btn-primary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
